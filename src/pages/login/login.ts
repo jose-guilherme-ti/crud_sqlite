@@ -107,7 +107,7 @@ export class LoginPage {
 
         this.http.pegar('customers/carregar_base_consultor')
           .subscribe(data => {
-            load.dismiss();
+            
             for (let d of data) {
               this.productProvider.insert_base_consultor(d);
 
@@ -132,7 +132,7 @@ export class LoginPage {
               this.productProvider.insert_proceso_seletivo(d);
             }
           });
-
+        load.dismiss();
       } else {
         let toast = this.toastCtrl.create({
           message: "Por favor conecte a internet para atualizar o sistema!!",

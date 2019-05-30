@@ -263,7 +263,7 @@ export class ProductProvider {
   }
 
   public atualizar_remover() {
-    this.dbProvider.getDB()
+   return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
         console.log('Atualizando bases, removendo antiga.')
         let sql1 = 'delete from cidade';
