@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Login Consultor</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="primary-font">
+  <form padding [formGroup]="loginForm" (submit)="login()" novalidate>
+
+    <ion-item>
+      <ion-label floating>Código</ion-label>
+      <ion-input type="text" [(ngModel)]="credential.codigo" formControlName="codigo"
+       type="text"
+        clearInput clearOnEdit="false">
+      </ion-input>
+    </ion-item>
+    <h6 *ngIf="errorCodigo" class="error"> {{messageCodigo}}</h6>
+    <ion-item>
+      <ion-label floating>Senha</ion-label>
+      <ion-input type="password" [(ngModel)]="credential.password" formControlName="password"
+       type="password" clearInput clearOnEdit="false"></ion-input>
+    </ion-item>
+    <h6 *ngIf="errorPassword" class="error"> {{messagePassword}}</h6>
+
+    <p>
+      <button ion-button block outline color="secondary" class="login-button">Login</button>
+    </p>
+  
+  </form>
+
+  <p>
+    <button ion-button full (click)="atualizar()">Atualizar sistema</button>
+  </p>
+
+
+</ion-content>

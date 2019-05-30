@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Consultor FTC
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form padding [formGroup]="editForm" (submit)="save()" novalidate>
+    <ion-list>
+
+      <ion-item>
+        <ion-label stacked>Nome</ion-label>
+        <ion-input type="text" name="nome" [(ngModel)]="model.nome" formControlName="nome" type="text" clearInput
+          clearOnEdit="false"></ion-input>
+      </ion-item>
+      <h6 *ngIf="errorNome" class="error"> {{messageNome}}</h6>
+
+     <!-- <ion-item>
+        <ion-label stacked>Cpf</ion-label>
+        <ion-input type="text" name="cpf" [(ngModel)]="model.cpf" formControlName="cpf" type="text" clearInput
+          clearOnEdit="false" mask='{999.999.999-99}'></ion-input>
+      </ion-item>-->
+      <ion-item>
+        <ion-label floating>CPF/CNPJ</ion-label>
+        <ion-input [(ngModel)]="model.cpf" (ionBlur)="model.cpf=format(model.cpf)" name="model.cpf" formControlName="cpf" type="text" clearInput
+        clearOnEdit="false"></ion-input>
+      </ion-item>
+      <h6 *ngIf="errorCpf" class="error"> {{messageCpf}}</h6>
+
+
+      <ion-item>
+        <ion-label stacked>Email</ion-label>
+        <ion-input name="model.email" [(ngModel)]="model.email" formControlName="email" type="text" clearInput
+          clearOnEdit="false"></ion-input>
+      </ion-item>
+      <h6 *ngIf="errorEmail" class="error"> {{messageEmail}}</h6>
+
+      <ion-item>
+        <ion-label stacked>Celular</ion-label>
+        <ion-input [(ngModel)]="model.celular"  (ionBlur)="model.celular=tel(model.celular)" name="model.celular" formControlName="celular" type="text"
+          clearInput clearOnEdit="false"></ion-input>
+      </ion-item>
+      <h6 *ngIf="errorCelular" class="error"> {{messageCelular}}</h6>
+
+      <!--<ion-list>
+      <ion-item>
+        <ion-label>Unidade FTC</ion-label>
+        <ion-select [(ngModel)]="model.cidade" *ngFor="let c of cursos_processos">
+          <ion-option value="{{c.unidade}}">{{c.unidade}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Selecione um Curso</ion-label>
+        <ion-select [(ngModel)]="model.curso_de_interesse">
+          <ion-option value="adm">Administração</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-list> -->
+
+      <ion-list>
+        <ion-item>
+          <ion-label>Cidade</ion-label>
+          <ion-select *ngIf="getCidades()" [(ngModel)]="model.cidade" (ionChange)="onSelectCidade($event);" id="cidade"
+            name="cidade" formControlName="cidade" type="text" clearInput clearOnEdit="false">
+            <ion-option value="0">Selecione Cidade</ion-option>
+            <ion-option *ngFor="let cidade of getCidades()" value="{{ cidade.id }}"> {{ cidade.nome }} </ion-option>
+          </ion-select>
+        </ion-item>
+        <h6 *ngIf="errorCidade" class="error"> {{messageCidade}}</h6>
+      </ion-list>
+
+      <ion-list>
+        <ion-item>
+          <ion-label>Curso</ion-label>
+          <ion-select *ngIf="getCursos()" [(ngModel)]="model.curso_de_interesse" (ionChange)="onSelectCurso($event);"
+            id="curso" formControlName="curso" type="text" clearInput clearOnEdit="false">
+            <ion-option value="0">Selecione Curso</ion-option>
+            <ion-option *ngFor="let curso of cursos_form" value="{{ curso.id }}">{{ curso.cursos }}</ion-option>
+          </ion-select>
+        </ion-item>
+        <h6 *ngIf="errorCurso" class="error"> {{messageCurso}}</h6>
+      </ion-list>
+
+
+
+
+
+      <ion-item>
+        <ion-label stacked>Código Consultor</ion-label>
+        <ion-input type="text" name="codigo_consultor" [(ngModel)]="model.codigo_consultor" value="{{codigo_consultor}}"
+          formControlName="codigo_consultor" type="text" clearInput clearOnEdit="false"></ion-input>
+      </ion-item>
+      <h6 *ngIf="errorCodigo_consultor" class="error"> {{messageCodigo_consultor}}</h6>
+
+      <ion-item>
+        <ion-label stacked>Ação Comercial</ion-label>
+        <ion-input type="text" name="acao_comercial" [(ngModel)]="model.acao_comercial" formControlName="acao_comercial"
+          type="text" clearInput clearOnEdit="false"></ion-input>
+      </ion-item>
+      <h6 *ngIf="errorAcao_comercial" class="error"> {{messageAcao_comercial}}</h6>
+
+
+      <ion-item>
+        <ion-label stacked>Processo Seletivo</ion-label>
+        <ion-select name="processo_seletivo" [(ngModel)]="model.processo_seletivo" formControlName="processo_seletivo"
+          type="text" clearInput clearOnEdit="false">
+          <ion-option *ngFor="let category of categories" value="{{ category.concurso_texto }}">{{ category.nome}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <h6 *ngIf="errorProcesso_seletivo" class="error"> {{messageProcesso_seletivo}}</h6>
+    </ion-list>
+
+    <button ion-button outline block>Salvar</button>
+  </form>
+</ion-content>
