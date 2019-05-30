@@ -113,7 +113,7 @@ export class LoginPage {
 
             }
           });
-
+           
         this.http.pegar('customers/cidade')
           .subscribe(data => {
             for (let d of data) {
