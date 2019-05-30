@@ -16,6 +16,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 @Injectable()
 export class AuthProvider {
   private msg: string = "É preciso logar para acessar!";
+  public data = false;
   consultor: any[] = [];
 
   constructor(
@@ -29,28 +30,26 @@ export class AuthProvider {
 
 
 
-  public login(credentials) {
-    var data: any = false;
-   
+   login(credentials):Promise<boolean>  {
+    return new Promise((resolve, reject) => {
+    console.log('Estou antes de pegar consultor');
     this.productProvider.pegar_consultor(credentials.codigo,  Md5.hashStr(credentials.password))
       .then((result: any[]) => {
         this.consultor = result;
         if (this.consultor != null) {
           for (let c of this.consultor) {
+            console.log('estou no storage.set');
             this.storage.set('codigo', c.codigo);
             this.storage.set('nome', c.nome);
+            resolve(true);
           }
-          return data = true;
+          
         } else {
-          let toast = this.toastCtrl.create({
-            message: "Login ou senha estão incorretos.",
-            duration: 3000
-          });
-          toast.present();
+          reject(false);
         }
 
       })
-      return data;
+    })
   }
 
 

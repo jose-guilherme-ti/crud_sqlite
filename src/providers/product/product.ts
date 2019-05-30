@@ -120,8 +120,10 @@ export class ProductProvider {
   }
 
   public pegar_consultor(codigo: string, senha: any) {
+    console.log('Estou dentro do products pegar consultor');
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
+        console.log('Estou depois do SQLiteObject products pegar consultor');
         let sql = 'SELECT * FROM acesso_consultor WHERE codigo = ? and senha = ?';
         let data = [codigo, senha];
         return db.executeSql(sql, data)
@@ -132,6 +134,7 @@ export class ProductProvider {
                 var curso = data.rows.item(i);
                 cursos.push(curso);
               }
+              console.log('Estou saindo do products pegar consultor');
               return cursos;
             } else {
               return null;

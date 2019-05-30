@@ -42,14 +42,14 @@ export class LoginPage {
   messagePassword = "";
   errorCodigo = false;
   errorPassword = false;
-
+  status :any;
 
 
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public authService: AuthProvider,
+    private authService: AuthProvider,
     public storage: Storage,
     public http: HttpServiceProvider,
     private productProvider: ProductProvider,
@@ -150,7 +150,7 @@ export class LoginPage {
 
   login() {
     let { codigo, password } = this.loginForm.controls;
-
+    console.log(this.loginForm.controls);
     if (!this.loginForm.valid) {
       if (!codigo.valid) {
         this.errorCodigo = true;
@@ -167,11 +167,27 @@ export class LoginPage {
       }
     }
     else {
-      this.authService.login(this.credential)
-      return new Promise((resolve, reject) => {
+      console.log('login digitado corretamente');
+      this.authService.login(this.credential).then((result)=>{
+          this.navCtrl.push(HomePage);
+      }).catch(() =>{
+        let toast = this.toastCtrl.create({
+          message: "Login ou senha estão incorretos.",
+          duration: 3000
+        });
+        toast.present();
+      })
+      
+        /*if (data) {
+          this.navCtrl.push(HomePage);
+        }*/
+      
+      /*return new Promise((resolve, reject) => {
         this.storage.get('codigo')
           .then((answer) => {
+            console.log('Antes do answer', answer);
             resolve(answer);
+            console.log('Depois do answer', answer);
             if (answer) {
               this.navCtrl.push(HomePage);
             }
@@ -179,7 +195,7 @@ export class LoginPage {
           .catch((err) => {
             reject(err);
           });
-      });
+      });*/
 
     }
 
