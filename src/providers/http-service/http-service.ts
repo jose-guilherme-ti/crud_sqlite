@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class HttpServiceProvider {
-  private url: string = 'http://www.ftc.br/slimapi/public/api';
+  private url: string = 'https://www.ftc.br/slimapi/public/api';
   constructor(public http: Http) {
     console.log('Hello HttpServiceProvider Provider');
   }

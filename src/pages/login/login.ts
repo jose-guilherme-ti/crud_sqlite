@@ -183,9 +183,6 @@ export class LoginPage {
 
     }
 
-
-
-
   }
 
 }
